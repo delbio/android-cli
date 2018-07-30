@@ -13,7 +13,7 @@ base_folder=${2}
 
 while read cp_pattern
 do
-  local folder=${base_folder}/${cp_pattern}
+  folder=${base_folder}/${cp_pattern}
   if [ -d "$folder" ]; then
     echo "copio cartella: ${folder} in:  $target_folder"
     adb push ${folder} $target_folder
