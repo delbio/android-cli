@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+#
+# Summary: copy folder from local to device
+#
+# Usage: android-cli device-restore <recipient-file> <backup-folder>
+#
+
+set -e # exit on error
+
+recipient_file=${1}
+target_folder="/sdcard/"
+base_folder=${2}
+
+while read cp_pattern
+do
+  echo "copio cartella: ${base_folder}/${cp_pattern} in:  $target_folder"
+  adb push ${base_folder}/${cp_pattern} $target_folder
+done < $recipient_file
+
+
+# example: bash restore.bash alice.list alice
