@@ -7,17 +7,20 @@
 
 set -e # exit on error
 
-recipient_file=${1}
-target_folder=${2}
+recipient_file=${1:-"backup_list.txt"}
+target_folder=${2:-"."}
 
 base_folder="/sdcard/"
+
+rm -f /tmp/android_backup_abd_list.txt
+tmpfile=$(mktemp /tmp/android_backup_abd_list.txt)
+
+adb pull -a ${base_folder}${recipient_file} $tmpfile
 
 while read cp_pattern
 do
   echo "copio cartella: ${base_folder}${cp_pattern} in:  $target_folder"
   adb pull -a ${base_folder}${cp_pattern} $target_folder
-done < $recipient_file
+done < $tmpfile
 
-
-# example: bash backup.bash alice.list alice
-
+rm -f $tmpfile
