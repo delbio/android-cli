@@ -12,15 +12,19 @@ target_folder=${2:-"."}
 
 base_folder="/sdcard/"
 
-rm -f /tmp/android_backup_abd_list.txt
-tmpfile=$(mktemp /tmp/android_backup_abd_list.txt)
+ttmpfile="$(mktemp)"
 
-adb pull -a ${base_folder}${recipient_file} $tmpfile
+adb pull -a "${base_folder}${recipient_file}" "$ttmpfile"
+
+tmpfile="$(mktemp)"
+cat "$ttmpfile" | sed '/^#/d' > "$tmpfile"
+
+rm -f "$ttmpfile"
 
 while read cp_pattern
 do
   echo "copio cartella: ${base_folder}${cp_pattern} in:  $target_folder"
-  adb pull -a ${base_folder}${cp_pattern} $target_folder
-done < $tmpfile
+  adb pull -a "${base_folder}${cp_pattern}" "$target_folder"
+done < "$tmpfile"
 
-rm -f $tmpfile
+rm -f "$tmpfile"
