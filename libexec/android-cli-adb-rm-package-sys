@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+#
+# Summary: remove system package from device via adb
+#
+# Usage: android-cli adb-rm-package-sys <package-id>
+#
+
+set -e # exit on error
+
+error() { clear; printf "ERROR:\\n%s\\n" "$1" >&2; exit 1;}
+
+packageid="$1"
+
+[ -z "${packageid}" ] && error "packageid is required"
+
+adb shell pm uninstall -k --user 0 "${packageid}"
+
+
+

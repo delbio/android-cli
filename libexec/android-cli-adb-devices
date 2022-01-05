@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+#
+# Summary: show devices connected via adb
+#
+# Usage: android-cli adb-devices
+#
+# Doc: https://developer.android.com/studio/command-line/adb
+
+set -e # exit on error
+
+adb devices

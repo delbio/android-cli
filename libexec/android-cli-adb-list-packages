@@ -1,0 +1,24 @@
+#!/usr/bin/env sh
+#
+# Summary: show installed packages on device
+#
+# Usage: android-cli adb-list-packages
+#
+# Doc: https://developer.android.com/studio/command-line/adb#pm
+#
+# Options:
+#
+#   -f: See their associated file.
+#   -d: Filter to only show disabled packages.
+#   -e: Filter to only show enabled packages.
+#   -s: Filter to only show system packages.
+#   -3: Filter to only show third party packages.
+#   -i: See the installer for the packages.
+#   -u: Also include uninstalled packages.
+#   --user user_id: The user space to query.
+#
+
+set -e # exit on error
+
+adb shell pm list packages "$@"
+
